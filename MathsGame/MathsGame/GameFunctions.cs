@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 namespace MathsGame;
 
 public class GameFunctions
@@ -5,77 +7,82 @@ public class GameFunctions
     const int EASY = 1;
     const int MEDIUM = 2;
     const int HARD = 3;
-    internal static void getDifficulty(int[] setDifficulty)
+
+    internal static int[] SetDifficulty()
     {
+        // Difficulty is stored as an int array
+        int[] difficulty = new int[2];
+
+        // Set up initial variables
         string? result;
         bool validInput = false;
         int userChoice = 0;
 
-    do
-    {
-        Console.WriteLine(@$"
-Choose your difficulty:
-   
-1. Easy
-2. Medium
-3. Hard
-   
-Enter a valid number from the list.
-");
 
-        result = Console.ReadLine();
-        if (result == null)
+        do
         {
-            Console.WriteLine("Input is null. Exiting the program");
-            Environment.Exit(1);
-        }
+            Helpers.ConsoleClear();
+            Console.WriteLine($"Choose your difficulty:\n");
+            Console.WriteLine("1. Easy");
+            Console.WriteLine("2. Medium");
+            Console.WriteLine("3. Hard\n");
+            Console.WriteLine("Enter a valid number from the list.");
 
-        try
-        {
-            int.Parse(result);
+            result = Console.ReadLine();
+
+            if (result == null)
+            {
+                Console.WriteLine("Input is null. Exiting the program");
+                Environment.Exit(1);
+                    return difficulty;
+            }
+
+            try
+            {
+                int.Parse(result);
             
-        }
-        catch (ArgumentNullException)
-        {
-            Console.WriteLine("No input detected. Please choose an option from the menu.\n");
-            continue;
-        }
-        catch (FormatException)
-        {
-            Console.WriteLine($"{result} is not a valid number. Please choose an option from the menu.\n");
-            continue;
-        }
+            }
+            catch (ArgumentNullException)
+            {
+                Console.WriteLine("No input detected. Please choose an option from the menu.\n");
+                continue;
+            }
+            catch (FormatException)
+            {
+                Console.WriteLine($"{result} is not a valid number. Please choose an option from the menu.\n");
+                continue;
+            }
 
-        userChoice = int.Parse(result);
-        if (Helpers.isInRange(userChoice, 1, 3))
-        {
-            validInput = true;
-        }
-        else
-        {
-            Console.WriteLine($"{userChoice} is not a menu option. Please choose again.\n");
-        }
+            userChoice = int.Parse(result);
+            if (Helpers.isInRange(userChoice, 1, 3))
+            {
+                validInput = true;
+            }
+            else
+            {
+                Console.WriteLine($"{userChoice} is not a menu option. Please choose again.\n");
+            }
         
-    } while (validInput == false);
+        } while (validInput == false);
 
-    switch (userChoice)
-    {
-        case EASY:
-            setDifficulty[0] = 0;
-            setDifficulty[1] = 9;
-            break;
-        case MEDIUM:
-            setDifficulty[0] = 0;
-            setDifficulty[1] = 100;
-            break;
-        case HARD:
-            setDifficulty[0] = -100;
-            setDifficulty[1] = 100;
-            break;
-        default:
-            Console.WriteLine("Error setting difficulty");
-            Environment.Exit(1);
-            break;
-    }
+        switch (userChoice)
+        {
+            case EASY:
+                difficulty[0] = 0;
+                difficulty[1] = 9;
+                    return difficulty;
+            case MEDIUM:
+                difficulty[0] = 0;
+                difficulty[1] = 100;
+                    return difficulty;
+            case HARD:
+                difficulty[0] = -100;
+                difficulty[1] = 100;
+                    return difficulty;
+            default:
+                difficulty[0] = 0;
+                difficulty[1] = 9;
+                    return difficulty;
+        }
     }
 }

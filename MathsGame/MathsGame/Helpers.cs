@@ -15,5 +15,11 @@ internal class Helpers
             return true;
         }
     }
+
+    internal static void ConsoleClear()
+    {
+        Thread.Sleep(1000);
+        Console.Clear();
+    }
     
 }
