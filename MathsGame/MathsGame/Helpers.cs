@@ -1,24 +1,19 @@
-﻿namespace MathsGame;
+﻿using System.Diagnostics.Contracts;
+
+namespace MathsGame;
 
 internal class Helpers
 {
-    internal static bool isStringANumber(string input)
+    internal static bool isInRange(int number, int lowerBound, int higherBound)
     {
-        try
+        if (number < lowerBound || number > higherBound)
         {
-            int.Parse(input);
-        }
-        catch (ArgumentNullException)
-        {
-            Console.WriteLine("No input detected. Please choose an option from the menu.");
             return false;
         }
-        catch (FormatException)
+        else
         {
-            Console.WriteLine($"{input} is not a valid number. Please choose an option from the menu.");
-            return false;
+            return true;
         }
-
-        return true;
     }
+    
 }
