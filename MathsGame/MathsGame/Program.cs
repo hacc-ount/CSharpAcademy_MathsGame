@@ -46,6 +46,8 @@ void RunMenu()
                 switch (userInput)
                 {
                     case 'A':
+                        // Place an arguement in the main Game() function that can be used to determine what
+                        // operations to use.
                         Console.WriteLine("Addition");
                         break;
                 }
