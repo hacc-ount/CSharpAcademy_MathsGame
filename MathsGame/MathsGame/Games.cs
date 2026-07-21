@@ -3,7 +3,7 @@
 internal class Games
 {
     //Addition game function 
-    internal static void AdditionGame(List<int> difficulty, int MAX_ROUNDS)
+    internal static void Game(int[] difficulty, int MAX_ROUNDS)
     {
         Random random = new Random();
         int firstNumber;
