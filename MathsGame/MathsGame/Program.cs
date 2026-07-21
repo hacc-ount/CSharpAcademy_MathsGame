@@ -8,12 +8,14 @@ bool gameRunning = false;
 // Run initial difficulty setting
 difficulty = GameFunctions.SetDifficulty();
 
+TheMenu();
 
-
-void RunMenu()
+void TheMenu()
 {
     do
     {
+        gameRunning = true;
+        
         Console.WriteLine("---------- Maths Game ----------");
         Console.WriteLine("Select an option below by typing in the command line:\n");
         Console.WriteLine("! - Change Difficulty");
@@ -48,7 +50,7 @@ void RunMenu()
                     case 'A':
                         // Place an arguement in the main Game() function that can be used to determine what
                         // operations to use.
-                        Console.WriteLine("Addition");
+                        Games.Game("Addition", difficulty, MAX_ROUNDS);
                         break;
                 }
             }
