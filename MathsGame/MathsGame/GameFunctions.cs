@@ -8,16 +8,12 @@ public class GameFunctions
     const int MEDIUM = 2;
     const int HARD = 3;
 
-    internal static int[] SetDifficulty()
+    internal static int[] SetDifficulty(int[] difficulty)
     {
-        // Difficulty is stored as an int array
-        int[] difficulty = new int[2];
-
         // Set up initial variables
         string? result;
         bool validInput = false;
         int userChoice = 0;
-
 
         do
         {

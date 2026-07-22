@@ -6,7 +6,7 @@ int[] difficulty = new int[2];
 bool gameRunning = false;
 
 // Run initial difficulty setting
-difficulty = GameFunctions.SetDifficulty();
+GameFunctions.SetDifficulty(difficulty);
 
 TheMenu();
 
@@ -18,12 +18,14 @@ void TheMenu()
         
         Console.WriteLine("---------- Maths Game ----------");
         Console.WriteLine("Select an option below by typing in the command line:\n");
-        Console.WriteLine("! - Change Difficulty");
+        Console.WriteLine("! - Change Difficulty\n");
         Console.WriteLine("A - Addition");
         Console.WriteLine("S - Subtraction");
         Console.WriteLine("M - Multiplication");
         Console.WriteLine("D - Division");
+        Console.WriteLine("R - Random\n");
         Console.WriteLine("Q - Quit\n");
+
         string? result = Console.ReadLine();
         if (result == null)
         {
@@ -39,7 +41,7 @@ void TheMenu()
                 switch (userInput)
                 {
                     case '!':
-                        GameFunctions.SetDifficulty();
+                        GameFunctions.SetDifficulty(difficulty);
                         break;
 
                 }
