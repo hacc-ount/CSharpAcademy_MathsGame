@@ -4,15 +4,16 @@ namespace MathsGame;
 
 internal class Games
 {
-    //Addition game function 
+   
+    /* Function to run the game rounds. Picks a game based on the game choice
+     * which is found in the main Program.cs.*/
     internal static void Game(string gameChoice, int[] difficulty, int MAX_ROUNDS)
     {
+        // Initial variables
         Random random = new Random();
         int firstNumber;
         int secondNumber;
-
         int score = 0;
-
         int userAnswer = 0;
 
         Console.Clear();
@@ -21,13 +22,36 @@ internal class Games
         // Run rounds
         for (int round = 0; round < MAX_ROUNDS; round++)
         {
+            // Temporarily set the answer back to zero within the loop
+            userAnswer = 0;
+
             // Update the number variables based on difficulty
             firstNumber = random.Next(difficulty[0], difficulty[1]);
             secondNumber = random.Next(difficulty[0], difficulty[1]);
 
-            int correctAnswer = GetAnswer(gameChoice, firstNumber, secondNumber);
-            
+            // List of Operation objects with different game operations
+            List<Operations> operations = new List<Operations>()
+            {
+                    new Operations(firstNumber, secondNumber)
+                    {
+                        Result = firstNumber + secondNumber,
+                        Question = $"What is {firstNumber} + {secondNumber}?\n"
+                    },
+                    new Operations(firstNumber, secondNumber)
+                    {
+                        Result = firstNumber - secondNumber,
+                        Question = $"What is {firstNumber} - {secondNumber}?\n"
+                    }
+            };
 
+            
+            // Set a random game (or operation) from operations
+            Operations randomChoice = operations[random.Next(2)];
+
+            // Ask the question based on the game choice and get the answer
+            int correctAnswer = GetAnswer(gameChoice, firstNumber, secondNumber, randomChoice);
+            
+            // Get user input
             string? result = Console.ReadLine();
             if (result == null)
             {
@@ -35,10 +59,7 @@ internal class Games
                 Environment.Exit(1);
             }
 
-            // Temporarily set the answer back to zero within the loop
-            userAnswer = 0;
-            
-
+            // Check the user input
             try
             {
                 userAnswer = int.Parse(result);
@@ -48,20 +69,23 @@ internal class Games
                 Console.WriteLine("Invalid number.");
             }
 
-            
+            // Check the users answer and display messages
             CheckAnswers(round, MAX_ROUNDS, userAnswer, correctAnswer, score);
             Helpers.ConsoleClear();
         }
     }
 
     // Function for asking the appropriate game question and getting the result.
-    private static int GetAnswer(string gameChoice, int firstNumber, int secondNumber)
+    private static int GetAnswer(string gameChoice, int firstNumber, int secondNumber, Operations randomChoice)
     {
         switch (gameChoice)
         {
             case "Addition":
                 Console.WriteLine($"What is {firstNumber} + {secondNumber}?\n");
                 return firstNumber + secondNumber;
+            case "Random":
+                Console.WriteLine(randomChoice.Question);
+                return randomChoice.Result;
             default:
                 Console.WriteLine("Error, no gamemode selected.");
                 return -10000; // This number will never be reached, so it equals an error.
