@@ -23,6 +23,7 @@ void TheMenu()
         Console.WriteLine("S - Subtraction");
         Console.WriteLine("M - Multiplication");
         Console.WriteLine("D - Division");
+        Console.WriteLine("Q - Quit\n");
         string? result = Console.ReadLine();
         if (result == null)
         {
@@ -32,7 +33,7 @@ void TheMenu()
 
         try
         {
-            char userInput = Convert.ToChar(result.Trim());
+            char userInput = Convert.ToChar(result.Trim().ToLower());
             if (Char.IsPunctuation(userInput))
             {
                 switch (userInput)
@@ -47,10 +48,14 @@ void TheMenu()
             {
                 switch (userInput)
                 {
-                    case 'A':
+                    case 'a':
                         // Place an arguement in the main Game() function that can be used to determine what
                         // operations to use.
                         Games.Game("Addition", difficulty, MAX_ROUNDS);
+                        break;
+                    case 'q':
+                        gameRunning = false;
+                        Environment.Exit(1);
                         break;
                 }
             }
