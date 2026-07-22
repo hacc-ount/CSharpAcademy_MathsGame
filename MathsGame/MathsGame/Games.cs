@@ -15,6 +15,7 @@ internal class Games
 
         int userAnswer = 0;
 
+        Console.Clear();
         Console.WriteLine($"{gameChoice} game started...\n");
 
         // Run rounds
@@ -73,22 +74,24 @@ internal class Games
         if (userAnswer == correctAnswer && round == MAX_ROUNDS - 1)
         {
             Console.WriteLine("Correct answer.");
-            Console.WriteLine("Game over. Press any key to return to the main menu.\n");
             score++;
+            Console.WriteLine("Game over. Press any key to return to the main menu.\n");
+            Console.ReadLine();
         }
         else if (userAnswer == correctAnswer && round <= MAX_ROUNDS - 1)
         {
-            Console.WriteLine("Correct answer. Press any key to continue.\n");
+            Console.WriteLine("Correct answer.\n");
             score++;
         }
-        else if (userAnswer != correctAnswer && round <= MAX_ROUNDS - 1)
+        else if (userAnswer != correctAnswer && round == MAX_ROUNDS - 1)
         {
-            Console.WriteLine("Incorrect. Press any key to continue.\n");
+            Console.WriteLine($"Incorrect. The answer was {correctAnswer}.");
+            Console.WriteLine("Game Over. Press any key to return to the main menu.\n");
+            Console.ReadLine();
         }
         else
         {
-            Console.WriteLine("Incorrect.");
-            Console.WriteLine("Game Over. Press any key to return to the main menu.\n");
+            Console.WriteLine($"Incorrect. The answer was {correctAnswer}.\n");
         }
     }
 }

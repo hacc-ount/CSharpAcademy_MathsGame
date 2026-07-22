@@ -55,6 +55,9 @@ void TheMenu()
                         // operations to use.
                         Games.Game("Addition", difficulty, MAX_ROUNDS);
                         break;
+                    case 'r':
+                        Games.Game("Random", difficulty, MAX_ROUNDS);
+                        break;
                     case 'q':
                         gameRunning = false;
                         Environment.Exit(1);
