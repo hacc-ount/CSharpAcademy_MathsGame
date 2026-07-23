@@ -1,4 +1,5 @@
 ﻿using System.Collections.Concurrent;
+using System.Text;
 
 namespace MathsGame;
 
@@ -7,14 +8,14 @@ internal class Games
    
     /* Function to run the game rounds. Picks a game based on the game choice
      * which is found in the main Program.cs.*/
-    internal static void Game(string gameChoice, int[] difficulty, int MAX_ROUNDS)
+    internal static void Game(string gameChoice, int[] difficulty, int MAX_ROUNDS, List<string> gameLog)
     {
         // Initial variables
         Random random = new Random();
         int firstNumber;
         int secondNumber;
         int score = 0;
-        int userAnswer = 0;
+        int userAnswer;
 
         Console.Clear();
         Console.WriteLine($"{gameChoice} game started...\n");
@@ -70,9 +71,12 @@ internal class Games
             }
 
             // Check the users answer and display messages
-            CheckAnswers(round, MAX_ROUNDS, userAnswer, correctAnswer, score);
+            score += CheckAnswers(round, MAX_ROUNDS, userAnswer, correctAnswer);
             Helpers.ConsoleClear();
         }
+
+        string log = $"{gameChoice}: Total Score: {score} -- {DateTime.Now}";
+        gameLog.Add(log);
     }
 
     // Function for asking the appropriate game question and getting the result.
@@ -93,29 +97,34 @@ internal class Games
     }
 
     // Function for checking the user answer against the correct answer.
-    private static void CheckAnswers(int round, int MAX_ROUNDS, int userAnswer, int correctAnswer, int score)
+    private static int CheckAnswers(int round, int MAX_ROUNDS, int userAnswer, int correctAnswer)
     {
+        int score = 0;
         if (userAnswer == correctAnswer && round == MAX_ROUNDS - 1)
         {
             Console.WriteLine("Correct answer.");
-            score++;
             Console.WriteLine("Game over. Press any key to return to the main menu.\n");
             Console.ReadLine();
+            score++;
+            return score;
         }
         else if (userAnswer == correctAnswer && round <= MAX_ROUNDS - 1)
         {
             Console.WriteLine("Correct answer.\n");
             score++;
+            return score;
         }
         else if (userAnswer != correctAnswer && round == MAX_ROUNDS - 1)
         {
             Console.WriteLine($"Incorrect. The answer was {correctAnswer}.");
             Console.WriteLine("Game Over. Press any key to return to the main menu.\n");
             Console.ReadLine();
+            return score;
         }
         else
         {
             Console.WriteLine($"Incorrect. The answer was {correctAnswer}.\n");
+            return score;
         }
     }
 }

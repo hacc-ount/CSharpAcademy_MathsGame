@@ -5,6 +5,9 @@ const int MAX_ROUNDS = 2;
 int[] difficulty = new int[2];
 bool gameRunning = false;
 
+// Game Log
+List<string> gameLog = new List<string>();
+
 // Run initial difficulty setting
 GameFunctions.SetDifficulty(difficulty);
 
@@ -18,12 +21,17 @@ void TheMenu()
         
         Console.WriteLine("---------- Maths Game ----------");
         Console.WriteLine("Select an option below by typing in the command line:\n");
+
         Console.WriteLine("! - Change Difficulty\n");
+
+        Console.WriteLine("V - View Past Games\n");
+
         Console.WriteLine("A - Addition");
         Console.WriteLine("S - Subtraction");
         Console.WriteLine("M - Multiplication");
         Console.WriteLine("D - Division");
         Console.WriteLine("R - Random\n");
+
         Console.WriteLine("Q - Quit\n");
 
         string? result = Console.ReadLine();
@@ -50,13 +58,16 @@ void TheMenu()
             {
                 switch (userInput)
                 {
-                    case 'a':
-                        // Place an arguement in the main Game() function that can be used to determine what
+                    // Place an arguement in the main Game() function that can be used to determine what
                         // operations to use.
-                        Games.Game("Addition", difficulty, MAX_ROUNDS);
+                    case 'a':
+                        Games.Game("Addition", difficulty, MAX_ROUNDS, gameLog);
+                        break;
+                    case 'v':
+                        GameFunctions.ViewLog(gameLog);
                         break;
                     case 'r':
-                        Games.Game("Random", difficulty, MAX_ROUNDS);
+                        Games.Game("Random", difficulty, MAX_ROUNDS, gameLog);
                         break;
                     case 'q':
                         gameRunning = false;

@@ -81,4 +81,17 @@ public class GameFunctions
                     return difficulty;
         }
     }
+
+    internal static void ViewLog(List<string> log)
+    {
+        Console.WriteLine("---------- Past Games Log ----------\n");
+
+        foreach (string line in log)
+        {
+            Console.WriteLine(line);
+        }
+        Console.WriteLine();
+        Console.WriteLine("Press any key to return to the main menu.");
+        Console.ReadLine();
+    }
 }
