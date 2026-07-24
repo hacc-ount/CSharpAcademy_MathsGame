@@ -63,6 +63,9 @@ void TheMenu()
                     case 'a':
                         Games.Game("Addition", difficulty, MAX_ROUNDS, gameLog);
                         break;
+                    case 'd':
+                        Games.Game("Division", difficulty, MAX_ROUNDS, gameLog);
+                        break;
                     case 'v':
                         GameFunctions.ViewLog(gameLog);
                         break;

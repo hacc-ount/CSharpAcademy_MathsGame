@@ -26,10 +26,28 @@ internal class Games
             // Temporarily set the answer back to zero within the loop
             userAnswer = 0;
 
-            // Update the number variables based on difficulty
+            // 
             firstNumber = random.Next(difficulty[0], difficulty[1]);
             secondNumber = random.Next(difficulty[0], difficulty[1]);
 
+            // Handle division game option
+            if (gameChoice == "Division")
+            {
+                if (firstNumber == 0)
+                    firstNumber += 1;
+                if (secondNumber == 0)
+                    secondNumber += 1;
+                while (!GameFunctions.DividesIntoInt(firstNumber, secondNumber))
+                {
+                    firstNumber = random.Next(difficulty[0], difficulty[1]);
+                    secondNumber = random.Next(difficulty[0], difficulty[1]);
+                    if (firstNumber == 0)
+                        firstNumber += 1;
+                    if (secondNumber == 0)
+                        secondNumber += 1;
+                }
+            }
+            
             // List of Operation objects with different game operations
             List<Operations> operations = new List<Operations>()
             {
@@ -87,6 +105,8 @@ internal class Games
             case "Addition":
                 Console.WriteLine($"What is {firstNumber} + {secondNumber}?\n");
                 return firstNumber + secondNumber;
+            case "Division":
+                
             case "Random":
                 Console.WriteLine(randomChoice.Question);
                 return randomChoice.Result;

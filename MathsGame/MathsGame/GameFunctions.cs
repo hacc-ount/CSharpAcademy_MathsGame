@@ -94,4 +94,16 @@ public class GameFunctions
         Console.WriteLine("Press any key to return to the main menu.");
         Console.ReadLine();
     }
+
+    internal static bool DividesIntoInt(int firstNumber, int secondNumber)
+    {
+        if (firstNumber % secondNumber == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
