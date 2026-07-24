@@ -1,24 +1,30 @@
-﻿using System.Collections.Concurrent;
-using System.Text;
+﻿using System.Timers;
 
 namespace MathsGame;
 
 internal class Games
 {
    
+    internal static System.Timers.Timer aTimer;
+    internal static int seconds;
+
     /* Function to run the game rounds. Picks a game based on the game choice
      * which is found in the main Program.cs.*/
     internal static void Game(string gameChoice, int[] difficulty, int MAX_ROUNDS, List<string> gameLog)
     {
+        
         // Initial variables
         Random random = new Random();
         int firstNumber;
         int secondNumber;
         int score = 0;
         int userAnswer;
+        seconds = 0;
 
         Console.Clear();
         Console.WriteLine($"{gameChoice} game started...\n");
+
+        startTimer();
 
         // Run rounds
         for (int round = 0; round < MAX_ROUNDS; round++)
@@ -90,10 +96,18 @@ internal class Games
 
             // Check the users answer and display messages
             score += CheckAnswers(round, MAX_ROUNDS, userAnswer, correctAnswer);
+
             Helpers.ConsoleClear();
         }
 
-        string log = $"{gameChoice}: Total Score: {score} -- {DateTime.Now}";
+        // Remove the timer
+        aTimer.Stop();
+        aTimer.Dispose();
+
+        Console.WriteLine("Game Over. Press any key to return to the main menu.\n");
+        Console.ReadLine();
+
+        string log = $"{gameChoice}: Total Score: {score}, Total Seconds: {seconds} --- {DateTime.Now}";
         gameLog.Add(log);
     }
 
@@ -106,7 +120,8 @@ internal class Games
                 Console.WriteLine($"What is {firstNumber} + {secondNumber}?\n");
                 return firstNumber + secondNumber;
             case "Division":
-                
+                Console.WriteLine($"What is {firstNumber} / {secondNumber}?\n");
+                return firstNumber / secondNumber;
             case "Random":
                 Console.WriteLine(randomChoice.Question);
                 return randomChoice.Result;
@@ -123,8 +138,7 @@ internal class Games
         if (userAnswer == correctAnswer && round == MAX_ROUNDS - 1)
         {
             Console.WriteLine("Correct answer.");
-            Console.WriteLine("Game over. Press any key to return to the main menu.\n");
-            Console.ReadLine();
+            Console.WriteLine("a");
             score++;
             return score;
         }
@@ -137,8 +151,7 @@ internal class Games
         else if (userAnswer != correctAnswer && round == MAX_ROUNDS - 1)
         {
             Console.WriteLine($"Incorrect. The answer was {correctAnswer}.");
-            Console.WriteLine("Game Over. Press any key to return to the main menu.\n");
-            Console.ReadLine();
+            Console.WriteLine("a");
             return score;
         }
         else
@@ -146,5 +159,19 @@ internal class Games
             Console.WriteLine($"Incorrect. The answer was {correctAnswer}.\n");
             return score;
         }
+    }
+
+    private static void startTimer()
+    {
+        aTimer = new System.Timers.Timer(1000);
+        aTimer.Start();
+        aTimer.Elapsed += timerEvent;
+        aTimer.AutoReset = true;
+        aTimer.Enabled = true;
+    }
+
+    private static void timerEvent(Object source, ElapsedEventArgs e)
+    {
+        seconds += 1;
     }
 }

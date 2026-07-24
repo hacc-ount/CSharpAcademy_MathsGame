@@ -1,4 +1,4 @@
-using System.Runtime.CompilerServices;
+using System.Timers;
 
 namespace MathsGame;
 
@@ -7,6 +7,9 @@ public class GameFunctions
     const int EASY = 1;
     const int MEDIUM = 2;
     const int HARD = 3;
+
+    internal static System.Timers.Timer newTimer;
+    internal static int seconds;
 
     internal static int[] SetDifficulty(int[] difficulty)
     {
@@ -107,3 +110,4 @@ public class GameFunctions
         }
     }
 }
+
